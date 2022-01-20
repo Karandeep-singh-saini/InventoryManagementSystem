@@ -12,6 +12,9 @@ IDE : Eclipse IDE 2021‑12
 Java environment :  java version "13.0.2" 
 Web Browser
 
+
+Step to Run the Application
+
 1. Clone the following repository and open the project on eclipse
 2. Let the eclipse setup the project and download all the maven dependencies and build the project or you can manually build the project
 3. Once project setup is done right click on the project root folder > select RunAs > JavaApplication
