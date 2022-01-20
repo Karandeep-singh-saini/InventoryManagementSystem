@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Users</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="../css/shards.min.css"> -->
+</head>
+
+<body>
+<div class="container my-2">
+    <div class="card">
+        <div class="card-body">
+            <div th:switch="${itemInventorys}" class="container my-5">
+                <p class="my-5">
+                    <a href="/createInventoryItemForm" class="btn btn-primary"><i
+                            class="fas fa-user-plus ml-2"> Add Inventory Item</i></a>
+                    <a href="/exportDataToCSV" class="btn btn-primary"><i
+                            class="fas fa-user-plus ml-2"> Export Data To CSV File</i></a>
+                </p>
+                <span style="color: green;" id="updateMessage" th:text="${updateMessage}" th:object="${updateMessage}"></span>
+                <span style="color: red;" id="deleteMessage" th:text="${deleteMessage}" th:object="${deleteMessage}"></span>
+                <div class="col-md-10">
+                    <h2 th:case="null">No Item In Inventory yet!</h2>
+                    <div th:case="*">
+                        <table class="table table-striped table-responsive-md">
+                            <thead>
+                            <tr>
+                            	<th>Id</th>
+                                <th>Name</th>
+                                <th>Serial Number</th>
+                                <th>Description</th>
+                                <th>Price/Unit</th>
+                                <th>Manufacturer Name</th>
+                                <th>Unit In Stock</th>
+                                <th>Warehouse Rack Number</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="itemInventory : ${itemInventorys}">
+                                <td th:text="${itemInventory.id}"></td>
+                                <td th:text="${itemInventory.name}"></td>
+                                <td th:text="${itemInventory.serialNumber}"></td>
+                                <td th:text="${itemInventory.description}"></td>
+                                <td th:text="${itemInventory.unitPrice}"></td>
+                                <td th:text="${itemInventory.manufacturerName}"></td>
+                                <td th:text="${itemInventory.quantityInStock}"></td>
+                                <td th:text="${itemInventory.warehouseRackNumber}"></td>
+                                
+                                <td><a th:href="@{/inventoryItem/edit/{id}(id=${itemInventory.id})}" class="btn btn-primary"><i class="fas fa-user-edit ml-2"></i></a></td>
+                                <td><a th:href="@{/inventoryItem/delete/{id}(id=${itemInventory.id})}" class="btn btn-primary"><i class="fas fa-user-times ml-2"></i></a></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+setTimeout(function () {
+    document.getElementById("updateMessage").innerHTML = "";
+}, 3000);
+setTimeout(function () {
+    document.getElementById("deleteMessage").innerHTML = "";
+}, 3000);
+</script>
+</body>
